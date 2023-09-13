@@ -19,6 +19,10 @@ const Login = (props) => {
     });
   };
 
+  if (!props.show) {
+    return null;
+  }
+
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -41,53 +45,52 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+<form
+className="max-w-full z-30 flex fixed left-0 right-0 top-0 mt-20 bottom-0 items-center justify-center bg-gradient-to-b from-white to-green/40"
+noValidate
+validated={"false"}
+onSubmit={handleFormSubmit}
+onClick={props.onClose}
+>
 
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
+<div className="flex flex-col">
+  <div
+    className="container max-w-sm mx-auto mt-2 md:mt-10 mb-10 flex-1 flex flex-col items-center justify-center px-2"
+    onClick={(e) => e.stopPropagation()}
+  >
+    <div className="px-6 py-8 rounded shadow-md shadow-sage text-black w-full bg-white">
+      <h1 htmlFor="email" className="mb-8 text-3xl text-center text-sage">
+        Login
+      </h1>
+      <input
+        type="text"
+        placeholder="Email"
+        name="email"
+        onChange={handleChange}
+        value={formState.email}
+        required
+        className="block border border-sage w-full p-3 rounded mb-4"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        onChange={handleChange}
+        value={formState.password}
+        required
+        className="block border border-sage w-full p-3 rounded mb-4"
+      />
+      <button
+        type="submit"
+        disabled={!(formState.email && formState.password)}
+        className="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>
+</form>
   );
 };
 

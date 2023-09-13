@@ -5,45 +5,25 @@ const ThoughtList = ({
   thoughts,
   title,
   showTitle = true,
-  showUsername = true,
 }) => {
   if (!thoughts.length) {
-    return <h3>No Thoughts Yet</h3>;
+    return <h3>No Contacts Yet</h3>;
   }
 
   return (
-    <div>
+    <div className='flex flex-wrap md:flex-row text-white mt-3'>
       {showTitle && <h3>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="card mb-3">
-            <h4 className="card-header bg-primary text-light p-2 m-0">
-              {showUsername ? (
-                <Link
-                  className="text-light"
-                  to={`/profiles/${thought.thoughtAuthor}`}
-                >
-                  {thought.thoughtAuthor} <br />
-                  <span style={{ fontSize: '1rem' }}>
-                    had this thought on {thought.createdAt}
-                  </span>
-                </Link>
-              ) : (
-                <>
-                  <span style={{ fontSize: '1rem' }}>
-                    You had this thought on {thought.createdAt}
-                  </span>
-                </>
-              )}
-            </h4>
+          <div key={thought._id} className="p-2 m-1 bg-tangerine rounded shadow-md">
             <div className="card-body bg-light p-2">
               <p>{thought.thoughtText}</p>
             </div>
             <Link
-              className="btn btn-primary btn-block btn-squared"
+              className="bg-white hover:bg-tangerine text-tangerine hover:text-white font-light py-1 px-3 m-3 rounded shadow-md"
               to={`/thoughts/${thought._id}`}
             >
-              Join the discussion on this thought.
+              Add Event
             </Link>
           </div>
         ))}

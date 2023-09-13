@@ -1,13 +1,13 @@
-import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React from "react";
+import { Navigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
-import ThoughtForm from '../components/ThoughtForm';
-import ThoughtList from '../components/ThoughtList';
+import ThoughtForm from "../components/ThoughtForm";
+import ThoughtList from "../components/ThoughtList";
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -36,30 +36,51 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
+    // <div>
+    //   <div className="container flex flex-col md:flex-row px-10 py-20 mx-auto">
+    // <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
+    //   Welcome, {user.username}!
+    // </h2>
+    //     {!userParam && (
+    //       <div
+    //         className="col-12 col-md-10 mb-3 p-3"
+    //         style={{ border: '1px dotted #1a1a1a' }}
+    //       >
+    //         <ThoughtForm />
+    //       </div>
+    //     )}
+    //     <div className="col-12 col-md-10 mb-5">
+    //       <ThoughtList
+    //         thoughts={user.thoughts}
+    //         title={`${user.username}'s thoughts...`}
+    //         showTitle={false}
+    //         showUsername={false}
+    //       />
+    //     </div>
 
-        <div className="col-12 col-md-10 mb-5">
-          <ThoughtList
-            thoughts={user.thoughts}
-            title={`${user.username}'s thoughts...`}
-            showTitle={false}
-            showUsername={false}
-          />
+    //   </div>
+    // </div>
+    <section id="profile">
+      <div className="container flex flex-col md:flex-row px-10 py-20 mx-auto">
+        <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-green font-display">
+            Welcome, {user.username}!
+          </h1>
+          <p className="leading-relaxed mb-2">Currently shipping from 12345.</p>
+
+          <ThoughtForm />
         </div>
-        {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: '1px dotted #1a1a1a' }}
-          >
-            <ThoughtForm />
-          </div>
-        )}
+
+        <div>
+            <ThoughtList
+              thoughts={user.thoughts}
+              title={`${user.username}'s thoughts...`}
+              showTitle={false}
+              showUsername={false}
+            />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
