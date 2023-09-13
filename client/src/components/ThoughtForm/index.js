@@ -54,50 +54,48 @@ const ThoughtForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'thoughtText' && value.length <= 280) {
+    if (name === 'thoughtText') {
       setThoughtText(value);
-      setCharacterCount(value.length);
     }
   };
 
   return (
     <div>
-      <h3>What's on your techy mind?</h3>
 
       {Auth.loggedIn() ? (
         <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
-          </p>
+
           <form
-            className="flex-row justify-center justify-space-between-md align-center"
+            className="flex items-center justify-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
-              <textarea
-                name="thoughtText"
-                placeholder="Here's a new thought..."
-                value={thoughtText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
-                onChange={handleChange}
-              ></textarea>
-            </div>
+            <div className="flex flex-col">
+              <div
+                className="container max-w-sm mx-auto mt-2 mb-10 flex-1 flex flex-col items-center justify-center "
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="px-6 py-2 rounded shadow-md shadow-sage text-black w-full bg-vanilla">
+                  <h4 className="text-center m-2">Add Contact</h4>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
-                Add Thought
-              </button>
-            </div>
-            {error && (
-              <div className="col-12 my-3 bg-danger text-white p-3">
-                {error.message}
+                  <input
+                    type="text"
+                    placeholder="Contact Name"
+                    name="thoughtText"
+                    onChange={handleChange}
+                    value={thoughtText}
+                    required
+                    className="block border border-sage w-full p-3 rounded mb-4"
+                  />
+                  <button
+                    disabled={!thoughtText}
+                    type="submit"
+                    className="w-full text-center py-3 rounded bg-tangerine hover:bg-white text-white hover:text-tangerine focus:outline-none my-1 shadow-sm"
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
-            )}
+            </div>
           </form>
         </>
       ) : (

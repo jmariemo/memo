@@ -1,45 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Login from "../../pages/Login";
 
 import Auth from '../../utils/auth';
 
 const Header = () => {
+  const [showLogin, setShowLogin] = useState(false);
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
   return (
-    <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <div>
-          <Link className="text-light" to="/">
-            <h1 className="m-0">Tech Thoughts</h1>
-          </Link>
-          <p className="m-0">Get into the mind of a programmer.</p>
-        </div>
-        <div>
+    <>
+    <div className="sticky top-0 z-40 flex flex-col md:flex-row pt-2 pb-6 items-center md:justify-between bg-gradient-to-b from-green to-white text-white">
+      <div className="flex flex-col items-center md:flex-row md:items-end">
+        <Link className="text-2xl md:p-2 font-display" to="/">
+          memo
+        </Link>
+        <p className="text-lg md:border-l-2 md:p-2 font-light">
+          don't forget!
+        </p>
+      </div>
+      <div>
+        <div className="flex items-center p-3 md:p-4">
+          {/* if user is logged in show button for logout, if user not logged in show button for login/signup */}
           {Auth.loggedIn() ? (
             <>
-              <Link className="btn btn-lg btn-info m-2" to="/me">
-                {Auth.getProfile().data.username}'s profile
-              </Link>
-              <button className="btn btn-lg btn-light m-2" onClick={logout}>
+              <button
+                className="bg-sage hover:bg-white text-white hover:text-sage border-sage font-light py-1 px-3 m-3 rounded shadow-md"
+                onClick={Auth.logout}
+              >
                 Logout
               </button>
+              <Link
+                className="bg-tangerine hover:bg-white text-white hover:text-tangerine border-tangerine font-light py-1 px-3 m-3 rounded shadow-md"
+                to="/me"
+              >
+                {Auth.getProfile().data.username}'s profile
+              </Link>
             </>
           ) : (
-            <>
-              <Link className="btn btn-lg btn-info m-2" to="/login">
+            <div>
+              <button
+                className="bg-sage hover:bg-white text-white hover:text-sage border-sage font-light py-1 px-3 m-3 rounded shadow-md"
+                onClick={() => setShowLogin(true)}
+              >
                 Login
+              </button>
+              <Link
+                className="bg-sage hover:bg-white text-white hover:text-sage border-sage font-light py-1 px-3 m-3 rounded shadow-md"
+                to="/signup"
+              >
+                Sign Up
               </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/signup">
-                Signup
-              </Link>
-            </>
+            </div>
           )}
         </div>
       </div>
-    </header>
+    </div>
+    <div
+      show={showLogin}
+      onHide={() => setShowLogin(false)}
+      aria-labelledby="login-modal"
+    >
+      <div>
+        <Login onClose={() => setShowLogin(false)} show={showLogin} />
+      </div>
+    </div>
+  </>
   );
 };
 

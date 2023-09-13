@@ -12,7 +12,7 @@ const resolvers = {
     },
     thoughts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+      return Thought.find(params).sort({ thoughtText: -1 });
     },
     thought: async (parent, { thoughtId }) => {
       return Thought.findOne({ _id: thoughtId });

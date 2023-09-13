@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
-import { ADD_COMMENT } from '../../utils/mutations';
+import { ADD_COMMENT } from "../../utils/mutations";
 
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 
 const CommentForm = ({ thoughtId }) => {
-  const [commentText, setCommentText] = useState('');
+  const [commentText, setCommentText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addComment, { error }] = useMutation(ADD_COMMENT);
@@ -24,7 +24,7 @@ const CommentForm = ({ thoughtId }) => {
         },
       });
 
-      setCommentText('');
+      setCommentText("");
     } catch (err) {
       console.error(err);
     }
@@ -33,51 +33,51 @@ const CommentForm = ({ thoughtId }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'commentText' && value.length <= 280) {
+    if (name === "commentText") {
       setCommentText(value);
-      setCharacterCount(value.length);
     }
   };
 
   return (
     <div>
-      <h4>What are your thoughts on this thought?</h4>
-
       {Auth.loggedIn() ? (
         <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
-            {error && <span className="ml-2">{error.message}</span>}
-          </p>
           <form
-            className="flex-row justify-center justify-space-between-md align-center"
+            className="flex items-center justify-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
-              <textarea
-                name="commentText"
-                placeholder="Add your comment..."
-                value={commentText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
-                onChange={handleChange}
-              ></textarea>
-            </div>
+            <div className="flex flex-col">
+              <div
+                className="container max-w-sm mx-auto mt-2 md:mt-10 mb-10 flex-1 flex flex-col items-center justify-center px-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="px-6 py-8 rounded shadow-md shadow-sage text-black w-full bg-white">
+                  <h4 className="text-center">Add Event</h4>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
-                Add Comment
-              </button>
+                  <input
+                    type="text"
+                    placeholder="What's the occasion?"
+                    name="commentText"
+                    onChange={handleChange}
+                    value={commentText}
+                    required
+                    className="block border border-sage w-full p-3 rounded mb-4"
+                  />
+                  <button
+                    disabled={!commentText}
+                    type="submit"
+                    className="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
+                  >
+                    Save Event
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to share your thoughts. Please{" "}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
