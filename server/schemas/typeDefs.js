@@ -3,25 +3,26 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID
-    username: String
+    userName: String
+    userZipCode: String
     email: String
     password: String
-    thoughts: [Thought]!
+    contacts: [Contact]!
   }
 
-  type Thought {
+  type Contact {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
+    contactName: String
+    contactZipCode: String
+    contactAuthor: String
     createdAt: String
-    comments: [Comment]!
+    events: [Event]!
   }
 
-  type Comment {
+  type Event {
     _id: ID
-    commentText: String
-    commentAuthor: String
-    createdAt: String
+    eventName: String
+    eventDate: String
   }
 
   type Auth {
@@ -31,19 +32,19 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(username: String!): User
-    thoughts(username: String): [Thought]
-    thought(thoughtId: ID!): Thought
+    user(userName: String): User
+    contacts(userName: String): [Contact]
+    contact(contactId: ID!): Contact
     me: User
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(userName: String!, userZipCode: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addThought(thoughtText: String!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    addContact(contactName: String!, contactZipCode: String!): Contact
+    addEvent(contactId: ID!, eventName: String!, eventDate: String!): Contact
+    removeContact(contactId: ID!): Contact
+    removeEvent(contactId: ID!, eventId: ID!): Contact
   }
 `;
 

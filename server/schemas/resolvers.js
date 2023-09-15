@@ -1,33 +1,33 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought } = require('../models');
+const { User, Contact } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('thoughts');
+      return User.find().populate('contacts');
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
+    user: async (parent, { userName }) => {
+      return User.findOne({ userName }).populate('contacts');
     },
-    thoughts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Thought.find(params).sort({ thoughtText: -1 });
+    contacts: async (parent, { userName }) => {
+      const params = userName ? { userName } : {};
+      return Contact.find(params).sort({ contactName: -1 });
     },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    contact: async (parent, { contactId }) => {
+      return Contact.findOne({ _id: contactId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('contacts');
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Please log in');
     },
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { userName, userZipCode, email, password }) => {
+      const user = await User.create({ userName, userZipCode, email, password });
       const token = signToken(user);
       return { token, user };
     },
@@ -48,29 +48,30 @@ const resolvers = {
 
       return { token, user };
     },
-    addThought: async (parent, { thoughtText }, context) => {
+    addContact: async (parent, { contactName, contactZipCode }, context) => {
       if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
+        const contact = await Contact.create({
+          contactName, 
+          contactZipCode,
+          contactAuthor: context.user.userName,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
+          { $addToSet: { contacts: contact._id } }
         );
 
-        return thought;
+        return contact;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Please log in');
     },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
+    addEvent: async (parent, { contactId, eventName, eventDate }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Contact.findOneAndUpdate(
+          { _id: contactId },
           {
             $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
+              events: { eventName, eventDate },
             },
           },
           {
@@ -79,40 +80,39 @@ const resolvers = {
           }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Please log in');
     },
-    removeThought: async (parent, { thoughtId }, context) => {
+    removeContact: async (parent, { contactId }, context) => {
       if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
+        const contact = await Contact.findOneAndDelete({
+          _id: contactId,
+          contactAuthor: context.user.userName,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
+          { $pull: { contacts: contact._id } }
         );
 
-        return thought;
+        return contact;
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Please log in');
     },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
+    removeEvent: async (parent, { contactId, eventId }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Contact.findOneAndUpdate(
+          { _id: contactId },
           {
             $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
+              events: {
+                _id: eventId,
               },
             },
           },
           { new: true }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Please log in');
     },
   },
 };
