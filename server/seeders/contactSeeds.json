@@ -1,0 +1,52 @@
+[
+  {
+    "contactName": "Justin O'Hara",
+    "contactZipCode": "96734",
+    "contactAuthor": "Brian Kernighan"
+  },
+  {
+    "contactName": "Sara Rosado",
+    "contactZipCode": "96734",
+    "contactAuthor": "Max Kanat-Alexander"
+  },
+  {
+    "contactName": "Tyson Owen",
+    "contactZipCode": "96734",
+    "contactAuthor": "Why The Lucky Stiff"
+  },
+  {
+    "contactName": "Deven Marshall",
+    "contactZipCode": "96734",
+    "contactAuthor": "Kent Beck"
+  },
+  {
+    "contactName": "Kate Bush",
+    "contactZipCode": "96734",
+    "contactAuthor": "Edward V. Berard"
+  },
+  {
+    "contactName": "Luis Rosado",
+    "contactZipCode": "96734",
+    "contactAuthor": "Alan Kay"
+  },
+  {
+    "contactName": "Lucy O'Hara",
+    "contactZipCode": "96734",
+    "contactAuthor": "C.A.R. Hoare"
+  },
+  {
+    "contactName": "Brittany Bikes",
+    "contactZipCode": "96734",
+    "contactAuthor": "David Thomas"
+  },
+  {
+    "contactName": "Amanda Apple",
+    "contactZipCode": "96734",
+    "contactAuthor": "Donald Knuth"
+  },
+  {
+    "contactName": "Bobbi Bakes",
+    "contactZipCode": "96734",
+    "contactAuthor": "Lernantino"
+  }
+]

@@ -31,7 +31,7 @@ const Header = () => {
                   className="bg-tangerine hover:bg-white text-white hover:text-tangerine border-tangerine font-light py-1 px-3 m-3 rounded shadow-md"
                   to="/me"
                 >
-                  {Auth.getProfile().data.username}'s profile
+                  {Auth.getProfile().data.userName}'s profile
                 </Link>
                 <button
                   className="bg-sage hover:bg-white text-white hover:text-sage border-sage font-light py-1 px-3 m-3 rounded shadow-md"

@@ -6,50 +6,64 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
-        username
+        userName
       }
     }
   }
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser($userName: String!, $userZipCode: String!, $email: String!, $password: String!) {
+    addUser(userName: $userName, userZipCode: $userZipCode, email: $email, password: $password) {
       token
       user {
         _id
-        username
+        userName
       }
     }
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+export const ADD_CONTACT = gql`
+  mutation addContact($contactName: String!, $contactZipCode: String!) {
+    addContact(contactName: $contactName, contactZipCode: $contactZipCode) {
       _id
-      thoughtText
-      thoughtAuthor
+      contactName
+      contactZipCode
+      contactAuthor
       createdAt
-      comments {
+      events {
         _id
-        commentText
+        eventName
+        eventDate
       }
     }
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+export const ADD_EVENT = gql`
+  mutation addEvent($contactId: ID!, $eventName: String!, $eventDate: String!) {
+    addEvent(contactId: $contactId, eventName: $eventName, eventDate: $eventDate) {
       _id
-      thoughtText
-      thoughtAuthor
+      contactName
+      contactZipCode
+      contactAuthor
       createdAt
-      comments {
+      events {
         _id
-        commentText
-        createdAt
+        eventName
+        eventDate
+      }
+    }
+  }
+`;
+
+export const REMOVE_EVENT = gql`
+  mutation removeEvent($contactId: ID!, $eventId: ID!) {
+    removeEvent(contactId: $contactId, eventId: $eventId) {
+      _id
+      events {
+        _id
       }
     }
   }
