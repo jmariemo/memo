@@ -36,33 +36,8 @@ const Profile = () => {
   }
 
   return (
-    // <div>
-    //   <div className="container flex flex-col md:flex-row px-10 py-20 mx-auto">
-    // <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-    //   Welcome, {user.username}!
-    // </h2>
-    //     {!userParam && (
-    //       <div
-    //         className="col-12 col-md-10 mb-3 p-3"
-    //         style={{ border: '1px dotted #1a1a1a' }}
-    //       >
-    //         <ThoughtForm />
-    //       </div>
-    //     )}
-    //     <div className="col-12 col-md-10 mb-5">
-    //       <ThoughtList
-    //         thoughts={user.thoughts}
-    //         title={`${user.username}'s thoughts...`}
-    //         showTitle={false}
-    //         showUsername={false}
-    //       />
-    //     </div>
-
-    //   </div>
-    // </div>
-    <section id="profile">
-      <div className="container flex flex-col md:flex-row px-10 py-20 mx-auto">
-        <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+      <div className="flex flex-col md:flex-row items-center px-10 py-20 md:mx-20">
+        <div className="flex flex-col lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 items-center md:items-start text-center md:text-left mb-16 md:mb-0">
           <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-green font-display">
             Welcome, {user.username}!
           </h1>
@@ -80,7 +55,6 @@ const Profile = () => {
             />
         </div>
       </div>
-    </section>
   );
 };
 

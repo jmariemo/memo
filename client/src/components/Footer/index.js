@@ -6,10 +6,10 @@ const Footer = () => {
 
   return (
 
-<footer className="bottom-0 text-white md:text-green bg-green md:bg-white">
-      <div className="flex flex-col md:flex-row p-3 text-center md:justify-end">
+<footer className="text-white md:text-green bg-green md:bg-white">
+      <div className="flex flex-col p-3 text-center">
 
-        <div className="font-display text-md">served by scheduleSquad 2023</div>
+        <div className="font-display text-md">scheduleSquad 2023</div>
         <div className="flex flex-col mt-2 md:mt-0">
           {footerData.map((teammate) => (
             <div>
