@@ -7,7 +7,7 @@ const ThoughtList = ({
   showTitle = true,
 }) => {
   if (!thoughts.length) {
-    return <h3>No Contacts Yet</h3>;
+    return <h3 className='text-center'>No Contacts Yet</h3>;
   }
 
   return (
@@ -23,7 +23,7 @@ const ThoughtList = ({
               className="bg-white hover:bg-tangerine text-tangerine hover:text-white font-light py-1 px-3 m-3 rounded shadow-md"
               to={`/thoughts/${thought._id}`}
             >
-              Add Event
+              See Events
             </Link>
           </div>
         ))}

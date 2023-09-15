@@ -130,7 +130,7 @@ const Signup = () => {
                       disabled={!(formState.username && formState.email && formState.password)}
                       className="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
                     >
-                      Login
+                      Sign Up!
                     </button>
                   </div>
                 </div>
